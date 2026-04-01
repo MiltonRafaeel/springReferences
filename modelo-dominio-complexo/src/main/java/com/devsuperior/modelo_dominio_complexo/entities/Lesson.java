@@ -1,7 +1,9 @@
 package com.devsuperior.modelo_dominio_complexo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -41,6 +44,9 @@ public abstract class Lesson implements Serializable {
 					@JoinColumn(name = "offer_id")
 			})
 	private Set<Enrollment> enrollmentsDone = new HashSet<>();
+	
+	@OneToMany(mappedBy = "lesson")
+	private List<Deliver> deliveries = new ArrayList<>();
 	
 	public Lesson() {
 		
@@ -87,6 +93,10 @@ public abstract class Lesson implements Serializable {
 
 	public Set<Enrollment> getenrollmentsDone() {
 		return enrollmentsDone;
+	}
+
+	public List<Deliver> getDeliveries() {
+		return deliveries;
 	}
 
 	@Override
