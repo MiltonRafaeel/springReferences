@@ -25,3 +25,6 @@ INSERT INTO tb_resource (title, description, position, img_Uri, type, offer_id) 
 INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prerequisite_id) VALUES ('capitulo 1', 'neste capitulo vamos comecar', 1, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 1, null);
 INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prerequisite_id) VALUES ('capitulo 2', 'neste capitulo vamos continuar', 2, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 1, 1);
 INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prerequisite_id) VALUES ('capitulo 3', 'neste capitulo vamos finalizar', 3, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 1, 2);
+
+INSERT INTO tb_enrollment (user_id, offer_id, enroll_Moment, refund_Moment, available, only_Update) VALUES (1, 1, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07Z', null, true, false);
+INSERT INTO tb_enrollment (user_id, offer_id, enroll_Moment, refund_Moment, available, only_Update) VALUES (2, 1, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07Z', null, true, false);
