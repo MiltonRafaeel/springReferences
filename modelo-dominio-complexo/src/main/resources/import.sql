@@ -22,3 +22,6 @@ INSERT INTO tb_resource (title, description, position, img_Uri, type, offer_id) 
 INSERT INTO tb_resource (title, description, position, img_Uri, type, offer_id) VALUES ('Forum', 'tire suas duvidas', 2, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 2, 1);
 INSERT INTO tb_resource (title, description, position, img_Uri, type, offer_id) VALUES ('Lives', 'Lives exclusivas', 3, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 0, 1);
 
+INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prerequisite_id) VALUES ('capitulo 1', 'neste capitulo vamos comecar', 1, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 1, null);
+INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prerequisite_id) VALUES ('capitulo 2', 'neste capitulo vamos continuar', 2, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 1, 1);
+INSERT INTO tb_section (title, description, position, img_Uri, resource_id, prerequisite_id) VALUES ('capitulo 3', 'neste capitulo vamos finalizar', 3, 'https://images.pexels.com/photos/7647950/pexels-photo-7647950.jpeg', 1, 2);
