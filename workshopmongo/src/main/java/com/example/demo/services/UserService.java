@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dtos.PostDTO;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.models.entities.User;
 import com.example.demo.repositories.UserRepository;
@@ -47,6 +48,11 @@ public class UserService {
 	public void delete(String id) {
 		getEntityById(id);
 		repository.deleteById(id);
+	}
+	
+	public List<PostDTO> getUserPosts(String id) {
+		User user = getEntityById(id);
+		return user.getPosts().stream().map(x -> new PostDTO(x)).toList();
 	}
 	
 	private User getEntityById(String id) {
