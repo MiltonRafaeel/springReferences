@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class PostService {
 	public PostDTO findById(String id) {
 		Post result = getEntityById(id);
 		return new PostDTO(result);
+	}
+	
+	public List<PostDTO> findByTitle(String text) {
+		List<Post> result = repository.findByTitleContainingIgnoreCase(text);
+		return result.stream().map(x -> new PostDTO(x)).toList();
 	}
 	
 	private Post getEntityById(String id) {
