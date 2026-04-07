@@ -1,5 +1,6 @@
 package com.devsuperior.workshopcassandra.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +21,11 @@ public class ProductService {
 	public ProductDTO findById(UUID id) {
 		Product Product = getById(id);
 		return new ProductDTO(Product);
+	}
+	
+	public List<ProductDTO> findByDepartment(String department) {
+		List<Product> list = repository.findByDepartment(department);
+		return list.stream().map(x -> new ProductDTO(x)).toList();
 	}
 	
 	private Product getById(UUID id) {
