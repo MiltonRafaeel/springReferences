@@ -34,6 +34,17 @@ public class ProductService {
 		return list.stream().map(x -> new ProductDTO(x)).toList();
 	}
 	
+	public List<ProductDTO> findByDescription(String text) {
+		List<Product> list;
+		if ("".equals(text)) {
+			list = repository.findAll();
+		}
+		else {
+			list = repository.findByDescription("%"+text+"%");
+		}	
+		return list.stream().map(x -> new ProductDTO(x)).toList();
+	}
+	
 	private Product getById(UUID id) {
 		Optional<Product> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException("Not found"));

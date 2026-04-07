@@ -33,4 +33,9 @@ public class ProductController {
 		return ResponseEntity.ok(obj);
 	}
 	
+	@GetMapping(value = "/description")
+	public ResponseEntity<List<ProductDTO>> findByDescription(@RequestParam(name = "text", defaultValue = "") String text) {
+		List<ProductDTO> obj = service.findByDescription(text);
+		return ResponseEntity.ok(obj);
+	}
 }
