@@ -1,6 +1,10 @@
 package com.example.demo.controllers;
 
 
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.controllers.util.URL;
 import com.example.demo.dtos.PostDTO;
 import com.example.demo.services.PostService;
 
@@ -32,20 +37,16 @@ public class PostController {
 		return postService.findByTitle(text);
 	}
 	
-	
-	/*
-	
-	
-	
-	
 	@GetMapping(value = "/fullsearch")
-	public ResponseEntity<List<PostDTO>> fullSearch(
+	public Flux<PostDTO> fullSearch(
 			@RequestParam(value = "text", defaultValue = "") String text,
-			@RequestParam(value = "start", defaultValue = "") String start,
-			@RequestParam(value = "end", defaultValue = "") String end
-			) {
-		List<PostDTO> result = postService.fullSearch(text, start, end);
-		return ResponseEntity.ok().body(result);
+			@RequestParam(value = "minDate", defaultValue = "") String minDate,
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate) throws UnsupportedEncodingException, ParseException {
+		
+		text = URL.decodeParam(text);
+		Instant min = URL.convertDate(minDate, Instant.EPOCH);
+		Instant max = URL.convertDate(maxDate, Instant.now());
+		
+		return postService.fullSearch(text, min, max);
 	}
-	*/
 }

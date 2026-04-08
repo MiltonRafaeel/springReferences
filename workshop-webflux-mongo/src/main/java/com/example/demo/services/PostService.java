@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,33 +27,10 @@ public class PostService {
 	public Flux<PostDTO> findByTitle(String text) {
 		return repository.searchTitle(text)
 				.map(postFound -> new PostDTO(postFound));
+	}	
+	
+	public Flux<PostDTO> fullSearch(String text, Instant minDate, Instant maxDate) {
+		maxDate = maxDate.plusSeconds(86400); // 24 * 60 * 60
+		return repository.fullSearch(text, minDate, maxDate).map(postFound -> new PostDTO(postFound));
 	}
-	
-/*
-	
-	}
-	
-	
-	
-	public List<PostDTO> fullSearch(String text, String start, String end) {
-		Instant startMoment = convertMoment(start, Instant.ofEpochMilli(0L));
-		Instant endMoment = convertMoment(end, Instant.now());
-		List<Post> result = repository.fullSearch(text, startMoment, endMoment);
-		return result.stream().map(x -> new PostDTO(x)).toList();
-	}
-	
-	private Instant convertMoment(String originalString, Instant alternative) {
-		try {
-			return Instant.parse(originalString);
-		} 
-		catch (DateTimeParseException e) {
-			return alternative;
-		}	
-	}
-
-	private Post getEntityById(String id) {
-		Optional<Post> post = repository.findById(id);
-		return post.orElseThrow(() -> new ResourceNotFoundException("Object not found"));
-	}
-	*/
 }
