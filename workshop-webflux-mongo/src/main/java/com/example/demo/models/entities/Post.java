@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.example.demo.models.embedded.Author;
 import com.example.demo.models.embedded.Comment;
@@ -20,6 +21,9 @@ public class Post {
 	private String body;
 	
 	private Author author;
+	
+	@DocumentReference
+	private User user;
 	
 	private List<Comment> comments = new ArrayList<>();
 	
@@ -73,6 +77,14 @@ public class Post {
 
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Comment> getComments() {
