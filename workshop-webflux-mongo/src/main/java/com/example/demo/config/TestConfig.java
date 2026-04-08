@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ public class TestConfig {
 	private PostRepository postRepository;
 	
 	@PostConstruct
-	public void init() {
+	public void init() throws InterruptedException, ExecutionException {
 		
 		Mono<Void> deleteUsers = userRepository.deleteAll();
 		deleteUsers.subscribe();
@@ -44,6 +45,10 @@ public class TestConfig {
 		Flux<User> insertUsers = userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		insertUsers.subscribe();
 		
+		maria = userRepository.searchEmail("maria@gmail.com").toFuture().get();
+		alex = userRepository.searchEmail("alex@gmail.com").toFuture().get();
+		bob = userRepository.searchEmail("bob@gmail.com").toFuture().get();
+		
 		Post post1 = new Post(null, Instant.parse("2021-02-13T11:15:01Z"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new Author(maria));
 		Post post2 = new Post(null, Instant.parse("2021-02-14T10:05:49Z"), "Bom dia", "Acordei feliz hoje!", new Author(maria));
 
@@ -53,6 +58,9 @@ public class TestConfig {
 
 		post1.getComments().addAll(Arrays.asList(c1, c2));
 		post2.getComments().addAll(Arrays.asList(c3));
+		
+		post1.setUser(userRepository.searchEmail("maria@gmail.com").block());
+		post2.setUser(userRepository.searchEmail("maria@gmail.com").block());
 		
 		Flux<Post> insertPosts = postRepository.saveAll(Arrays.asList(post1, post2));
 		insertPosts.subscribe();
