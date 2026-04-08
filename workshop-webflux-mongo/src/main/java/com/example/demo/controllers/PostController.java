@@ -16,7 +16,7 @@ import com.example.demo.services.PostService;
 @RestController
 @RequestMapping(value = "/posts")
 public class PostController {
-	
+	/*
 	@Autowired
 	private PostService postService;
 	
@@ -41,4 +41,5 @@ public class PostController {
 		List<PostDTO> result = postService.fullSearch(text, start, end);
 		return ResponseEntity.ok().body(result);
 	}
+	*/
 }

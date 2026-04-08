@@ -3,14 +3,14 @@ package com.example.demo.repositories;
 import java.time.Instant;
 import java.util.List;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.models.entities.Post;
 
 @Repository
-public interface PostRepository extends MongoRepository<Post, String> {
+public interface PostRepository extends ReactiveMongoRepository<Post, String> {
 	
 	List<Post> findByTitleContainingIgnoreCase(String text);
 	

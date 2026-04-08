@@ -1,25 +1,16 @@
 package com.example.demo.services;
 
-import java.time.Instant;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.dtos.PostDTO;
-import com.example.demo.models.entities.Post;
 import com.example.demo.repositories.PostRepository;
-import com.example.demo.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PostService {
 	
 	@Autowired
 	private PostRepository repository;
-
+/*
 	@Transactional(readOnly = true)
 	public PostDTO findById(String id) {
 		Post result = getEntityById(id);
@@ -51,4 +42,5 @@ public class PostService {
 		Optional<Post> post = repository.findById(id);
 		return post.orElseThrow(() -> new ResourceNotFoundException("Object not found"));
 	}
+	*/
 }
