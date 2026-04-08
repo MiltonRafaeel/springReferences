@@ -7,6 +7,7 @@ import com.example.demo.dtos.PostDTO;
 import com.example.demo.repositories.PostRepository;
 import com.example.demo.services.exceptions.ResourceNotFoundException;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -21,14 +22,16 @@ public class PostService {
 				.switchIfEmpty(Mono.error(new ResourceNotFoundException("Not Found")));
 	}
 	
+	public Flux<PostDTO> findByTitle(String text) {
+		return repository.searchTitle(text)
+				.map(postFound -> new PostDTO(postFound));
+	}
+	
 /*
 	
 	}
 	
-	public List<PostDTO> findByTitle(String text) {
-		List<Post> result = repository.searchTitle(text);
-		return result.stream().map(x -> new PostDTO(x)).toList();
-	}
+	
 	
 	public List<PostDTO> fullSearch(String text, String start, String end) {
 		Instant startMoment = convertMoment(start, Instant.ofEpochMilli(0L));
