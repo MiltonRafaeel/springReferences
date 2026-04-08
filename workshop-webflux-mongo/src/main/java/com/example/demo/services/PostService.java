@@ -3,18 +3,26 @@ package com.example.demo.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dtos.PostDTO;
 import com.example.demo.repositories.PostRepository;
+import com.example.demo.services.exceptions.ResourceNotFoundException;
+
+import reactor.core.publisher.Mono;
 
 @Service
 public class PostService {
 	
 	@Autowired
 	private PostRepository repository;
+	
+	public Mono<PostDTO> findById(String id) {
+		return repository.findById(id)
+				.map(existingPost -> new PostDTO(existingPost))
+				.switchIfEmpty(Mono.error(new ResourceNotFoundException("Not Found")));
+	}
+	
 /*
-	@Transactional(readOnly = true)
-	public PostDTO findById(String id) {
-		Post result = getEntityById(id);
-		return new PostDTO(result);
+	
 	}
 	
 	public List<PostDTO> findByTitle(String text) {
